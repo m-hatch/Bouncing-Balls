@@ -3,7 +3,7 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 let width = canvas.width = window.innerWidth;
-let height = canvas.height = window.innerHeight;
+let height = canvas.height = window.innerHeight - 40;  // adjust for button
 
 const balls = [];
 
@@ -60,10 +60,25 @@ document.getElementById('generate').addEventListener('click', function() {
   const ball = new Ball(
     random(0, width),
     random(0, height),
-    random(-7, 7),
-    random(-7, 7),
+    random(-12, 12),
+    random(-12, 12),
     'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) +')',
     random(10, 20)
   );
   balls.push(ball);
 });
+
+// animate the balls
+function animate() {
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+  ctx.fillRect(0, 0, width, height);
+
+  balls.forEach(element => {
+    element.draw();
+    element.update();
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
