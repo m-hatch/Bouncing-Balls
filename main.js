@@ -5,6 +5,8 @@ const ctx = canvas.getContext('2d');
 let width = canvas.width = window.innerWidth;
 let height = canvas.height = window.innerHeight;
 
+const balls = [];
+
 // ball object
 class Ball {
   constructor(x, y, velocityX, velocityY, color, radius) {
@@ -52,3 +54,16 @@ class Ball {
 function random(min, max) {
   return Math.floor(Math.random()*(max-min)) + min;
 }
+
+// generate new ball on button click
+document.getElementById('generate').addEventListener('click', function() {
+  const ball = new Ball(
+    random(0, width),
+    random(0, height),
+    random(-7, 7),
+    random(-7, 7),
+    'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) +')',
+    random(10, 20)
+  );
+  balls.push(ball);
+});
