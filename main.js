@@ -6,6 +6,7 @@ let width = canvas.width = window.innerWidth;
 let height = canvas.height = window.innerHeight - 60;  // adjust for button
 
 const balls = [];
+const button = document.getElementById('generate');
 const scoreboard = document.getElementById('score');
 let score = 0;
 
@@ -103,11 +104,20 @@ function animate() {
   });
 
   scoreboard.innerHTML = score;
-
   requestAnimationFrame(animate);
+}
+
+// get mouse position
+function getMousePosition(event) {
+  const rect = canvas.getBoundingClientRect();
+  console.log({
+    x: event.clientX - rect.left,
+    y: event.clientY - rect.top
+  });
 }
 
 // add listeners and start animation
 window.addEventListener('resize', resize, false);
-document.getElementById('generate').addEventListener('click', addBall);
+button.addEventListener('click', addBall);
+canvas.addEventListener('click', getMousePosition);
 animate();
