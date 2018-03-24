@@ -12,7 +12,7 @@
   const ballCount = document.getElementById('count');
 
   // vars
-  const balls = [];
+  let balls = [];
   let score = 0;
 
   // ball object
@@ -24,6 +24,7 @@
       this.velocityY = velocityY;
       this.color = color;
       this.radius = radius;
+      this.captured = false;
     }
 
     draw() {
@@ -40,12 +41,10 @@
 
       if ((edgeX >= width) || (edgeX <= diameter)) {
         this.velocityX = -(this.velocityX);
-        score++;
       }
 
       if ((edgeY >= height) || (edgeY <= diameter)) {
         this.velocityY = -(this.velocityY);
-        score++;
       }
 
       this.x += this.velocityX;
@@ -57,15 +56,14 @@
       Math.random() >= 0.5 ? 
         this.velocityY = -(this.velocityY) : 
         this.velocityX = -(this.velocityX);
-      score++;
     }
 
     detectCollision() {
       balls.forEach(element => {
         if (!(this === element)) {
-          var dx = this.x - element.x;
-          var dy = this.y - element.y;
-          var distance = Math.sqrt(dx * dx + dy * dy);
+          const dx = this.x - element.x;
+          const dy = this.y - element.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < this.radius + element.radius) {
             element.bounce();
@@ -92,8 +90,8 @@
     const ball = new Ball(
       random(radius, width),
       random(radius, height),
-      random(-8, 12),
-      random(-8, 12),
+      random(-12, 12),
+      random(-12, 12),
       'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) +')',
       radius
     );
@@ -117,19 +115,45 @@
     requestAnimationFrame(animate);
   }
 
-  // get mouse position
-  function getMousePosition(event) {
+  // check mouse position
+  function checkMousePosition(event) {
     const rect = canvas.getBoundingClientRect();
-    console.log({
+    const point = {
       x: event.clientX - rect.left,
       y: event.clientY - rect.top
+    };
+    capture(point.x, point.y);
+  }
+
+  // capture ball
+  function capture(px, py) {
+    balls.forEach(element => {
+      const {x, y} = element;
+      const distance = Math.sqrt((px - x) * (px - x) + (py - y) * (y - y));
+
+      if (distance < element.radius) {
+        alert('captured');
+        element.captured = true;
+        balls = remove(balls, "captured", true);
+        score++;
+      }
     });
+  }
+
+  // remove item from array
+  function remove(array, key, value) {
+    const index = array.findIndex(obj => obj[key] === value);
+
+    // return copy of array without found item
+    return index >= 0 ? 
+      [ ...array.slice(0, index), ...array.slice(index + 1) ] : 
+      array;
   }
 
   // add listeners and start animation
   window.addEventListener('resize', resize, false);
   button.addEventListener('click', addBall);
-  canvas.addEventListener('click', getMousePosition);
+  canvas.addEventListener('click', checkMousePosition);
   animate();
 
 })();
