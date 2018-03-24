@@ -34,6 +34,10 @@ h1 {
   color: #fff;
 }
 
+.scoreboard p {
+  margin: 0 0 1em;
+}
+
 button {
   position: absolute;
   left: 0;

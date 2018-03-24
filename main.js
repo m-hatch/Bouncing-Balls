@@ -8,6 +8,7 @@ let height = canvas.height = window.innerHeight - 60;  // adjust for button
 const balls = [];
 const button = document.getElementById('generate');
 const scoreboard = document.getElementById('score');
+const ballCount = document.getElementById('count');
 let score = 0;
 
 // ball object
@@ -106,6 +107,8 @@ function animate() {
   });
 
   scoreboard.innerHTML = score;
+  ballCount.innerHTML = balls.length || 0;
+
   requestAnimationFrame(animate);
 }
 
