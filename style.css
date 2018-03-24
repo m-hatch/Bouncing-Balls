@@ -27,6 +27,13 @@ h1 {
   border-radius: 15px;
 }
 
+.scoreboard {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #fff;
+}
+
 button {
   position: absolute;
   left: 0;

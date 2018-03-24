@@ -6,6 +6,8 @@ let width = canvas.width = window.innerWidth;
 let height = canvas.height = window.innerHeight - 40;  // adjust for button
 
 const balls = [];
+const scoreboard = document.getElementById('score');
+let score = 0;
 
 // ball object
 class Ball {
@@ -31,10 +33,12 @@ class Ball {
 
     if ((edgeX >= width) || (edgeX <= 0)) {
       this.velocityX = -(this.velocityX);
+      score++;
     }
 
     if ((edgeY >= height) || (edgeY <= 0)) {
       this.velocityY = -(this.velocityY);
+      score++;
     }
 
     this.x += this.velocityX;
@@ -46,6 +50,7 @@ class Ball {
     Math.random() >= 0.5 ? 
       this.velocityY = -(this.velocityY) : 
       this.velocityX = -(this.velocityX);
+    score++;
   }
 
   detectCollision() {
@@ -91,6 +96,8 @@ function animate() {
     element.update();
     element.detectCollision();
   });
+
+  scoreboard.innerHTML = score;
 
   requestAnimationFrame(animate);
 }
