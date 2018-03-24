@@ -9,11 +9,13 @@
   // DOM elements
   const button = document.getElementById('generate');
   const scoreboard = document.getElementById('score');
+  const bounceCount = document.getElementById('bounces');
   const ballCount = document.getElementById('count');
 
   // vars
   let balls = [];
   let score = 0;
+  let numBounces = 0;
 
   // ball object
   class Ball {
@@ -41,10 +43,12 @@
 
       if ((edgeX >= width) || (edgeX <= diameter)) {
         this.velocityX = -(this.velocityX);
+        numBounces++;
       }
 
       if ((edgeY >= height) || (edgeY <= diameter)) {
         this.velocityY = -(this.velocityY);
+        numBounces++;
       }
 
       this.x += this.velocityX;
@@ -67,6 +71,7 @@
 
           if (distance < this.radius + element.radius) {
             element.bounce();
+            numBounces++;
           }
         }
       });
@@ -110,6 +115,7 @@
     });
 
     scoreboard.innerHTML = score;
+    bounceCount.innerHTML = numBounces;
     ballCount.innerHTML = balls.length || 0;
 
     requestAnimationFrame(animate);
