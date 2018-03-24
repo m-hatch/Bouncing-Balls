@@ -73,6 +73,11 @@ function random(min, max) {
   return Math.floor(Math.random()*(max-min)) + min;
 }
 
+function resize() {
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight - 60;
+}
+
 // generate new ball
 function addBall() {
   const ball = new Ball(
@@ -102,6 +107,7 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-// add listener to button and start animation
+// add listeners and start animation
+window.addEventListener('resize', resize, false);
 document.getElementById('generate').addEventListener('click', addBall);
 animate();
