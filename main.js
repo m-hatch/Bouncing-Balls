@@ -31,13 +31,14 @@ class Ball {
   update() {
     let edgeX = this.x + this.radius;
     let edgeY = this.y + this.radius;
+    let diameter = this.radius * 2;
 
-    if ((edgeX >= width) || (edgeX <= 0)) {
+    if ((edgeX >= width) || (edgeX <= diameter)) {
       this.velocityX = -(this.velocityX);
       score++;
     }
 
-    if ((edgeY >= height) || (edgeY <= 0)) {
+    if ((edgeY >= height) || (edgeY <= diameter)) {
       this.velocityY = -(this.velocityY);
       score++;
     }
@@ -81,13 +82,14 @@ function resize() {
 
 // generate new ball
 function addBall() {
+  const radius = 14;
   const ball = new Ball(
-    random(0, width),
-    random(0, height),
-    random(-12, 12),
-    random(-12, 12),
+    random(radius, width),
+    random(radius, height),
+    random(-8, 12),
+    random(-8, 12),
     'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) +')',
-    12  // radius
+    radius
   );
   balls.push(ball);
 }
