@@ -55,18 +55,18 @@ function random(min, max) {
   return Math.floor(Math.random()*(max-min)) + min;
 }
 
-// generate new ball on button click
-document.getElementById('generate').addEventListener('click', function() {
+// generate new ball
+function addBall() {
   const ball = new Ball(
     random(0, width),
     random(0, height),
     random(-12, 12),
     random(-12, 12),
     'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) +')',
-    random(10, 20)
+    12  // radius
   );
   balls.push(ball);
-});
+}
 
 // animate the balls
 function animate() {
@@ -81,4 +81,6 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
+// add listener to button and start animation
+document.getElementById('generate').addEventListener('click', addBall);
 animate();

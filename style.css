@@ -14,6 +14,7 @@ body {
 
 h1 {
   font-size: 2rem;
+  font-weight: 500;
   letter-spacing: -1px;
   position: absolute;
   margin: 0;
