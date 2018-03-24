@@ -29,24 +29,37 @@ class Ball {
     let edgeX = this.x + this.radius;
     let edgeY = this.y + this.radius;
 
-    if (edgeX >= width) {
+    if ((edgeX >= width) || (edgeX <= 0)) {
       this.velocityX = -(this.velocityX);
     }
 
-    if (edgeX <= 0) {
-      this.velocityX = -(this.velocityX);
-    }
-
-    if (edgeY >= height) {
-      this.velocityY = -(this.velocityY);
-    }
-
-    if (edgeY <= 0) {
+    if ((edgeY >= height) || (edgeY <= 0)) {
       this.velocityY = -(this.velocityY);
     }
 
     this.x += this.velocityX;
     this.y += this.velocityY;
+  }
+
+  bounce() {
+    // choose the direction of the bounce by coin flip
+    Math.random() >= 0.5 ? 
+      this.velocityY = -(this.velocityY) : 
+      this.velocityX = -(this.velocityX);
+  }
+
+  detectCollision() {
+    balls.forEach(element => {
+      if (!(this === element)) {
+        var dx = this.x - element.x;
+        var dy = this.y - element.y;
+        var distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < this.radius + element.radius) {
+          element.bounce();
+        }
+      }
+    });
   }
 }
 
@@ -76,6 +89,7 @@ function animate() {
   balls.forEach(element => {
     element.draw();
     element.update();
+    element.detectCollision();
   });
 
   requestAnimationFrame(animate);
