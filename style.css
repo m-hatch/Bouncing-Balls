@@ -39,6 +39,16 @@ button {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 40px;
+  height: 60px;
   padding: 10px;
+  font-size: 1em;
+  border-left: 10px;
+  border-right: 10px;
+  border-bottom: 10px;
+  border-style: solid;
+  border-color: #000;
+}
+
+button:focus {
+  outline: 0;
 }

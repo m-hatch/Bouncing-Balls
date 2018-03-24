@@ -3,7 +3,7 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 let width = canvas.width = window.innerWidth;
-let height = canvas.height = window.innerHeight - 40;  // adjust for button
+let height = canvas.height = window.innerHeight - 60;  // adjust for button
 
 const balls = [];
 const scoreboard = document.getElementById('score');
