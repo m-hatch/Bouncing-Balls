@@ -141,9 +141,20 @@
         alert('captured');
         element.captured = true;
         balls = remove(balls, "captured", true);
-        score++;
+        score+= getPoints();
       }
     });
+  }
+
+  // points algorithm
+  function getPoints() {
+    let points = 100;
+
+    balls.forEach(() => {
+      points *= 0.9;
+    });
+
+    return Math.floor(points);
   }
 
   // remove item from array
